@@ -12,10 +12,12 @@ class EditorPin {
   private pins: Pin[] = [];
   private frame = 0;
   private readonly onScroll = () => this.schedule();
+  private readonly refresher = () => this.schedule();
 
   constructor(private readonly view: EditorView, private readonly plugin: StickyCalloutPlugin) {
     this.overlay = new PinOverlay(view.dom, plugin.app);
     view.scrollDOM.addEventListener("scroll", this.onScroll, { passive: true });
+    plugin.refreshers.add(this.refresher);
     this.schedule();
   }
 
@@ -26,6 +28,7 @@ class EditorPin {
   destroy() {
     window.cancelAnimationFrame(this.frame);
     this.view.scrollDOM.removeEventListener("scroll", this.onScroll);
+    this.plugin.refreshers.delete(this.refresher);
     this.overlay.destroy();
   }
 

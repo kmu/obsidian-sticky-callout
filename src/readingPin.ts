@@ -8,11 +8,13 @@ class ReadingPin {
   private readonly overlay: PinOverlay;
   private frame = 0;
   private readonly onScroll = () => this.schedule();
+  private readonly refresher = () => this.schedule();
 
   constructor(private readonly view: MarkdownView, private readonly plugin: StickyCalloutPlugin) {
     this.overlay = new PinOverlay(view.contentEl, plugin.app);
     // scroll events do not bubble, so listen on the way down to catch whichever element scrolls
     view.contentEl.addEventListener("scroll", this.onScroll, { capture: true, passive: true });
+    plugin.refreshers.add(this.refresher);
     this.schedule();
   }
 
@@ -24,6 +26,7 @@ class ReadingPin {
   destroy() {
     window.cancelAnimationFrame(this.frame);
     this.view.contentEl.removeEventListener("scroll", this.onScroll, { capture: true });
+    this.plugin.refreshers.delete(this.refresher);
     this.overlay.destroy();
   }
 
