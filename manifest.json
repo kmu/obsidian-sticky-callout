@@ -1,0 +1,10 @@
+{
+  "id": "sticky-callout",
+  "name": "Sticky Callout",
+  "version": "0.1.0",
+  "minAppVersion": "1.10.0",
+  "description": "Keep one callout stuck to the top of the note while you scroll.",
+  "author": "kmu",
+  "isDesktopOnly": false,
+  "authorUrl": "https://github.com/kmu"
+}

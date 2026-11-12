@@ -1,0 +1,11 @@
+node_modules/
+main.js
+*.log
+.DS_Store
+
+# working notes (design docs, plans); kept locally, not published
+.superpowers/
+docs/superpowers/
+
+# per-vault plugin data written by Obsidian
+data.json
