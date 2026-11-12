@@ -3,9 +3,9 @@ main.js
 *.log
 .DS_Store
 
-# working notes (design docs, plans); kept locally, not published
+# working notes (design docs, plans, test lists); kept locally, not published
 .superpowers/
-docs/superpowers/
+docs/
 
 # per-vault plugin data written by Obsidian
 data.json

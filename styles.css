@@ -1,1 +1,17 @@
-/* Sticky Callout */
+/* A pinned callout drawn over the top of the editor once it has scrolled out. */
+.sticky-callout-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  max-height: var(--sticky-callout-max-height, 30%);
+  overflow-y: auto;
+  padding: 0 var(--file-margins, 16px);
+  background-color: var(--background-primary);
+}
+
+.sticky-callout-overlay .callout {
+  margin: var(--size-4-2) auto;
+  max-width: var(--file-line-width);
+}
