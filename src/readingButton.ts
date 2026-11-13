@@ -12,6 +12,8 @@ export function registerReadingButton(plugin: StickyCalloutPlugin): void {
     const callout = el.matches(".callout") ? el : el.querySelector<HTMLElement>(".callout");
     const title = callout?.querySelector<HTMLElement>(":scope > .callout-title");
     if (!head || !callout || !title || callout.parentElement?.closest(".callout")) return;
-    title.appendChild(createPinButton(head.pinned, () => void togglePinInFile(plugin.app, ctx.sourcePath, info.lineStart)));
+    const button = createPinButton(head.pinned, () => void togglePinInFile(plugin.app, ctx.sourcePath, info.lineStart));
+    // before the fold arrow, so both stay at the right edge
+    title.insertBefore(button, title.querySelector(".callout-fold"));
   });
 }

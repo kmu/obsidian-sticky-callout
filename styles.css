@@ -35,6 +35,15 @@
   height: var(--icon-s);
 }
 
+.callout-title > .sticky-callout-pin {
+  margin-left: auto;
+}
+
+/* in the editor the button sits on the right edge of the title line */
+.cm-line > .sticky-callout-pin {
+  float: right;
+}
+
 .sticky-callout-pin.is-pinned {
   color: var(--text-accent);
   opacity: 1;
