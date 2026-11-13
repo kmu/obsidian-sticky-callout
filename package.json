@@ -1,6 +1,6 @@
 {
   "name": "obsidian-sticky-callout",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Keep one callout stuck to the top of the note while you scroll",
   "main": "main.js",
   "scripts": {
