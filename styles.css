@@ -1,17 +1,67 @@
-/* A pinned callout drawn over the top of the editor once it has scrolled out. */
+/* A pinned callout drawn over the top of the editor or reading view once it has scrolled out. */
 .sticky-callout-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 5;
-  max-height: var(--sticky-callout-max-height, 30%);
-  overflow-y: auto;
   padding: 0 var(--file-margins, 16px);
   background-color: var(--background-primary);
+}
+
+.sticky-callout-overlay-body {
+  max-height: var(--sticky-callout-max-height, 30%);
+  overflow-y: auto;
 }
 
 .sticky-callout-overlay .callout {
   margin: var(--size-4-2) auto;
   max-width: var(--file-line-width);
+}
+
+/* The pin button on a callout's title line. */
+.sticky-callout-pin {
+  display: inline-flex;
+  align-items: center;
+  margin-left: var(--size-4-2);
+  color: var(--text-faint);
+  cursor: pointer;
+  opacity: 0;
+  vertical-align: middle;
+}
+
+.sticky-callout-pin svg {
+  width: var(--icon-s);
+  height: var(--icon-s);
+}
+
+.sticky-callout-pin.is-pinned {
+  color: var(--text-accent);
+  opacity: 1;
+}
+
+.sticky-callout-pin.is-pinned svg {
+  fill: currentColor;
+}
+
+.callout:hover .sticky-callout-pin,
+.cm-line:hover .sticky-callout-pin,
+.sticky-callout-pin:focus-visible {
+  opacity: 0.7;
+}
+
+.sticky-callout-pin:hover {
+  opacity: 1;
+  color: var(--text-accent);
+}
+
+.is-mobile .sticky-callout-pin:not(.is-pinned) {
+  opacity: 0.5;
+}
+
+.sticky-callout-overlay-button {
+  position: absolute;
+  top: var(--size-4-4);
+  right: var(--size-4-8);
+  opacity: 1;
 }

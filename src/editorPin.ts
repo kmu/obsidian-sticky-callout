@@ -2,6 +2,7 @@ import type { Extension, Text } from "@codemirror/state";
 import { EditorView, ViewPlugin, type ViewUpdate } from "@codemirror/view";
 import { editorInfoField } from "obsidian";
 import type StickyCalloutPlugin from "./main";
+import { editorButtonExtension, togglePinAtLine } from "./editorButton";
 import { PinOverlay } from "./overlay";
 import { findPins, limitPx, pinAbove, type Pin } from "./pins";
 
@@ -51,10 +52,10 @@ class EditorPin {
     const topLine = view.state.doc.lineAt(block.from).number - 1;
     const pin = pinAbove(this.pinsOf(view.state.doc), topLine);
     const path = view.state.field(editorInfoField).file?.path ?? "";
-    this.overlay.set(pin, path, limitPx(view.dom.clientHeight, this.plugin.settings.maxHeightPercent));
+    this.overlay.set(pin, path, limitPx(view.dom.clientHeight, this.plugin.settings.maxHeightPercent), () => pin && togglePinAtLine(view, pin.start));
   }
 }
 
 export function editorPinExtension(plugin: StickyCalloutPlugin): Extension {
-  return ViewPlugin.define((view) => new EditorPin(view, plugin));
+  return [ViewPlugin.define((view) => new EditorPin(view, plugin)), editorButtonExtension()];
 }

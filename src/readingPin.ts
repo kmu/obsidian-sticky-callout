@@ -1,6 +1,7 @@
 import { MarkdownView } from "obsidian";
 import type StickyCalloutPlugin from "./main";
 import { PinOverlay } from "./overlay";
+import { togglePinInFile } from "./pinFile";
 import { findPins, limitPx, pinAbove } from "./pins";
 
 /** Keeps the pinned callout on screen in reading view, for every open note. */
@@ -37,7 +38,8 @@ class ReadingPin {
       return;
     }
     const pin = pinAbove(findPins(view.data), Math.floor(view.previewMode.getScroll()));
-    this.overlay.set(pin, view.file.path, limitPx(view.contentEl.clientHeight, this.plugin.settings.maxHeightPercent));
+    const path = view.file.path;
+    this.overlay.set(pin, path, limitPx(view.contentEl.clientHeight, this.plugin.settings.maxHeightPercent), () => pin && void togglePinInFile(this.plugin.app, path, pin.start));
   }
 }
 
@@ -65,6 +67,10 @@ export function registerReadingPin(plugin: StickyCalloutPlugin): void {
   plugin.registerEvent(plugin.app.workspace.on("layout-change", sync));
   plugin.registerEvent(plugin.app.workspace.on("file-open", sync));
   plugin.registerEvent(plugin.app.workspace.on("active-leaf-change", sync));
+  // a pin added or removed in the note (by hand or with the button) changes what to show
+  const redraw = () => panes.forEach((pane) => pane.schedule());
+  plugin.registerEvent(plugin.app.vault.on("modify", redraw));
+  plugin.registerEvent(plugin.app.metadataCache.on("changed", redraw));
   plugin.register(() => {
     for (const pane of panes.values()) pane.destroy();
     panes.clear();

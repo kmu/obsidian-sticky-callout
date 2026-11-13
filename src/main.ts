@@ -1,5 +1,6 @@
 import { Plugin, debounce } from "obsidian";
 import { editorPinExtension } from "./editorPin";
+import { registerReadingButton } from "./readingButton";
 import { registerReadingPin } from "./readingPin";
 import { StickyCalloutSettingTab } from "./settingsTab";
 
@@ -28,6 +29,7 @@ export default class StickyCalloutPlugin extends Plugin {
     this.settings = { ...DEFAULT_SETTINGS, ...((await this.loadData()) as Partial<Settings> | null) };
     this.registerEditorExtension(editorPinExtension(this));
     registerReadingPin(this);
+    registerReadingButton(this);
     this.addSettingTab(new StickyCalloutSettingTab(this));
   }
 }
