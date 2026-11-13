@@ -15,7 +15,13 @@ Add `pin` to the callout's type:
 - Scroll down, and the callout stays at the top of the pane, in the editor (live preview and source mode) and in reading view.
 - With several pinned callouts in a note, only one is stuck at a time: when the next one scrolls past the top, it takes over.
 - A tall callout is capped at a share of the pane height (30% by default) and scrolls inside.
-- Without the plugin the note shows an ordinary callout, and the note file is never changed.
+- Without the plugin the note shows an ordinary callout.
+
+### The pin button
+
+Every top-level callout has a pin button at the end of its title line, in the editor (live preview) and in reading view. Click it to add `|pin` to the callout, or to remove it. On desktop the button shows when the pointer is over the callout; a pinned callout always shows a filled pin. The callout stuck at the top has its own button that unpins it.
+
+The button changes only that callout's first line, and only when you click it. Nothing else in the note is touched.
 
 Only top-level callouts count. A `pin` inside a code block, or in a callout nested in another quote, is ignored.
 
