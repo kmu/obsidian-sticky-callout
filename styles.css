@@ -24,9 +24,9 @@
   display: inline-flex;
   align-items: center;
   margin-left: var(--size-4-2);
-  color: var(--text-faint);
+  color: var(--text-muted);
   cursor: pointer;
-  opacity: 0;
+  opacity: 0.65;
   vertical-align: middle;
 }
 
@@ -47,16 +47,12 @@
 .callout:hover .sticky-callout-pin,
 .cm-line:hover .sticky-callout-pin,
 .sticky-callout-pin:focus-visible {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .sticky-callout-pin:hover {
   opacity: 1;
   color: var(--text-accent);
-}
-
-.is-mobile .sticky-callout-pin:not(.is-pinned) {
-  opacity: 0.5;
 }
 
 .sticky-callout-overlay-button {

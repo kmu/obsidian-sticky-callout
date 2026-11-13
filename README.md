@@ -19,7 +19,7 @@ Add `pin` to the callout's type:
 
 ### The pin button
 
-Every top-level callout has a pin button at the end of its title line, in the editor (live preview) and in reading view. Click it to add `|pin` to the callout, or to remove it. On desktop the button shows when the pointer is over the callout; a pinned callout always shows a filled pin. The callout stuck at the top has its own button that unpins it.
+Every top-level callout has a pin button at the end of its title line, in the editor (live preview) and in reading view. Click it to add `|pin` to the callout, or to remove it. An unpinned callout shows a faint outline pin (brighter when the pointer is over it); a pinned callout shows a filled pin. The callout stuck at the top has its own button that unpins it.
 
 The button changes only that callout's first line, and only when you click it. Nothing else in the note is touched.
 
