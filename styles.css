@@ -5,18 +5,20 @@
   left: 0;
   right: 0;
   z-index: 5;
-  padding: 0 var(--file-margins, 16px);
   background-color: var(--background-primary);
 }
 
+/* Lined up with the note's text column, measured by the plugin; the margins are a fallback. */
 .sticky-callout-overlay-body {
+  margin-left: var(--sticky-callout-left, var(--file-margins, 16px));
+  width: var(--sticky-callout-width, calc(100% - 2 * var(--file-margins, 16px)));
   max-height: var(--sticky-callout-max-height, 30%);
   overflow-y: auto;
 }
 
-.sticky-callout-overlay .callout {
-  margin: var(--size-4-2) auto;
-  max-width: var(--file-line-width);
+/* Stronger than Obsidian's ".markdown-source-view.mod-cm6 .callout { margin: 0 }". */
+.sticky-callout-overlay .sticky-callout-overlay-body .callout {
+  margin: var(--size-4-2) 0;
 }
 
 /* The pin button on a callout's title line. */
@@ -67,6 +69,10 @@
 .sticky-callout-overlay-button {
   position: absolute;
   top: var(--size-4-4);
-  right: var(--size-4-8);
+  /* just inside the right edge of the stuck callout */
+  right: calc(
+    100% - var(--sticky-callout-left, var(--file-margins, 16px)) -
+      var(--sticky-callout-width, calc(100% - 2 * var(--file-margins, 16px))) + var(--size-4-4)
+  );
   opacity: 1;
 }

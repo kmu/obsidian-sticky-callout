@@ -10,12 +10,15 @@ class ReadingPin {
   private frame = 0;
   private readonly onScroll = () => this.schedule();
   private readonly refresher = () => this.schedule();
+  // resizing the pane moves the text column without scrolling
+  private readonly resized = new ResizeObserver(() => this.schedule());
 
   constructor(private readonly view: MarkdownView, private readonly plugin: StickyCalloutPlugin) {
     this.overlay = new PinOverlay(view.contentEl, plugin.app);
     // scroll events do not bubble, so listen on the way down to catch whichever element scrolls
     view.contentEl.addEventListener("scroll", this.onScroll, { capture: true, passive: true });
     plugin.refreshers.add(this.refresher);
+    this.resized.observe(view.contentEl);
     this.schedule();
   }
 
@@ -27,6 +30,7 @@ class ReadingPin {
   destroy() {
     window.cancelAnimationFrame(this.frame);
     this.view.contentEl.removeEventListener("scroll", this.onScroll, { capture: true });
+    this.resized.disconnect();
     this.plugin.refreshers.delete(this.refresher);
     this.overlay.destroy();
   }
@@ -39,7 +43,7 @@ class ReadingPin {
     }
     const pin = pinAbove(findPins(view.data), Math.floor(view.previewMode.getScroll()));
     const path = view.file.path;
-    this.overlay.set(pin, path, limitPx(view.contentEl.clientHeight, this.plugin.settings.maxHeightPercent), () => pin && void togglePinInFile(this.plugin.app, path, pin.start));
+    this.overlay.set(pin, path, limitPx(view.contentEl.clientHeight, this.plugin.settings.maxHeightPercent), view.previewMode.containerEl.querySelector<HTMLElement>(".markdown-preview-sizer"), () => pin && void togglePinInFile(this.plugin.app, path, pin.start));
   }
 }
 

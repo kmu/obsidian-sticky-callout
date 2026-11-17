@@ -52,7 +52,7 @@ class EditorPin {
     const topLine = view.state.doc.lineAt(block.from).number - 1;
     const pin = pinAbove(this.pinsOf(view.state.doc), topLine);
     const path = view.state.field(editorInfoField).file?.path ?? "";
-    this.overlay.set(pin, path, limitPx(view.dom.clientHeight, this.plugin.settings.maxHeightPercent), () => pin && togglePinAtLine(view, pin.start));
+    this.overlay.set(pin, path, limitPx(view.dom.clientHeight, this.plugin.settings.maxHeightPercent), view.contentDOM, () => pin && togglePinAtLine(view, pin.start));
   }
 }
 

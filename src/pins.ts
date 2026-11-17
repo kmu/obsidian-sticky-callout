@@ -71,3 +71,12 @@ export function pinAbove(pins: Pin[], topLine: number): Pin | null {
 export function limitPx(paneHeight: number, percent: number): number {
   return Math.max(0, Math.round((paneHeight * percent) / 100));
 }
+
+/** Where the note's text column sits inside the box that holds the overlay; null if it is not laid out. */
+export function columnBox(
+  host: { left: number; width: number },
+  column: { left: number; width: number },
+): { left: number; width: number } | null {
+  if (column.width <= 0) return null;
+  return { left: Math.round(column.left - host.left), width: Math.round(column.width) };
+}

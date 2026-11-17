@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { findCallouts, findPins, limitPx, pinAbove, togglePin, type Pin } from "../src/pins";
+import { columnBox, findCallouts, findPins, limitPx, pinAbove, togglePin, type Pin } from "../src/pins";
 
 describe("findPins", () => {
   it("finds a pinned callout with all its lines", () => {
@@ -98,5 +98,16 @@ describe("findCallouts", () => {
       [3, 3, true],
       [8, 8, false],
     ]);
+  });
+});
+
+describe("columnBox", () => {
+  it("places the note column relative to the box that holds the overlay, rounded", () => {
+    expect(columnBox({ left: 100, width: 1400 }, { left: 450.4, width: 700.2 })).toEqual({ left: 350, width: 700 });
+    expect(columnBox({ left: 0, width: 600 }, { left: 16, width: 568 })).toEqual({ left: 16, width: 568 });
+  });
+
+  it("gives nothing for a column that is not laid out", () => {
+    expect(columnBox({ left: 0, width: 600 }, { left: 0, width: 0 })).toBeNull();
   });
 });
